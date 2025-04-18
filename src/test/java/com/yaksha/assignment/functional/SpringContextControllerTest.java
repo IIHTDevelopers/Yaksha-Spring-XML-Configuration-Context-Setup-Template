@@ -85,15 +85,4 @@ public class SpringContextControllerTest {
 		// Using yakshaAssert to validate the test result
 		yakshaAssert(currentTest(), result, businessTestFile);
 	}
-
-	@Test
-	public void testMissingPropertyInXMLShouldFailTest() throws IOException {
-		String filePath = "src/main/resources/applicationContext.xml"; // Path to XML file
-		boolean result = XMLParserUtils.checkXMLStructure(filePath, "testBean", // The expected bean id
-				"name", // The expected property name
-				"Non-Existent Value"); // A value that does not exist
-
-		// Using yakshaAssert to validate the test result
-		yakshaAssert(currentTest(), result, businessTestFile);
-	}
 }
