@@ -27,39 +27,47 @@ public class SpringContextControllerTest {
 
 	@Test
 	public void testClassPathXmlContextLoadsBeanAndNameCorrectly() throws IOException {
-		// Load the context from the classpath-based XML configuration
-		ApplicationContext contextClasspath = new GenericXmlApplicationContext("file:src/main/resources/applicationContext.xml");
+		try {
+			// Load the context from the classpath-based XML configuration
+			ApplicationContext contextClasspath = new GenericXmlApplicationContext("file:src/main/resources/applicationContext.xml");
 
-		// Retrieve the bean from the context
-		TestBean testBean = contextClasspath.getBean("testBean", TestBean.class);
+			// Retrieve the bean from the context
+			TestBean testBean = contextClasspath.getBean("testBean", TestBean.class);
 
-		// Assert that the bean is correctly instantiated
-		boolean beanNotNull = testBean != null;
+			// Assert that the bean is correctly instantiated
+			boolean beanNotNull = testBean != null;
 
-		// Assert that the 'name' property is set correctly
-		boolean beanPresent = "Spring Boot Bean Example".equals(testBean.getName());
+			// Assert that the 'name' property is set correctly
+			boolean beanPresent = "Spring Boot Bean Example".equals(testBean.getName());
 
-		// Use yakshaAssert to validate the test result
-		yakshaAssert(currentTest(), beanNotNull && beanPresent, businessTestFile);
+			// Use yakshaAssert to validate the test result
+			yakshaAssert(currentTest(), beanNotNull && beanPresent, businessTestFile);
+		} catch (Exception ex) {
+			yakshaAssert(currentTest(), false, businessTestFile);
+		}
 	}
 
 	@Test
 	public void testFileSystemXmlContextLoadsBeanAndNameCorrectly() throws IOException {
-		// Load the context from the file system-based XML configuration
-		ApplicationContext contextFileSystem = new GenericXmlApplicationContext(
-				"file:src/main/resources/external-config/fileSystemContext.xml");
+		try {
+			// Load the context from the file system-based XML configuration
+			ApplicationContext contextFileSystem = new GenericXmlApplicationContext(
+					"file:src/main/resources/external-config/fileSystemContext.xml");
 
-		// Retrieve the bean from the context
-		TestBean testBeanFromFileSystem = contextFileSystem.getBean("testBeanFromFileSystem", TestBean.class);
+			// Retrieve the bean from the context
+			TestBean testBeanFromFileSystem = contextFileSystem.getBean("testBeanFromFileSystem", TestBean.class);
 
-		// Assert that the bean is correctly instantiated
-		boolean beanNotNull = testBeanFromFileSystem != null;
+			// Assert that the bean is correctly instantiated
+			boolean beanNotNull = testBeanFromFileSystem != null;
 
-		// Assert that the 'name' property is set correctly
-		boolean beanPresent = "File System Bean".equals(testBeanFromFileSystem.getName());
+			// Assert that the 'name' property is set correctly
+			boolean beanPresent = "File System Bean".equals(testBeanFromFileSystem.getName());
 
-		// Use yakshaAssert to validate the test result
-		yakshaAssert(currentTest(), beanNotNull && beanPresent, businessTestFile);
+			// Use yakshaAssert to validate the test result
+			yakshaAssert(currentTest(), beanNotNull && beanPresent, businessTestFile);
+		} catch (Exception ex) {
+			yakshaAssert(currentTest(), false, businessTestFile);
+		}
 	}
 
 	@Test
